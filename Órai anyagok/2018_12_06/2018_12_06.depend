@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1544099576 source:/home/botond/Documents/Work_CodeBlocks/2018_12_06/main.cpp
+	<iostream>
+	<set>
+	<vector>
+

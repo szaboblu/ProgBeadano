@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1511445086 source:d:\work_codeblocks\struktura_tagfuggveny_11_23\main.cpp
+	<iostream>
+	<vector>
+	<cmath>
+
