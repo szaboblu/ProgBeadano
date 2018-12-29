@@ -84,22 +84,14 @@ public:
     }
 };
 
-struct Halo{
-    int pos_x,pos_y;
-    vector<Kep> Hurok; // ide menti el a hurok sorrendjét// vagy mentse máshova?
+struct Keszlet{
+    //int pos_x,pos_y;
+    //vector<Kep> Hurok; // ide menti el a hurok sorrendjét// vagy mentse máshova?
     map<Kep,int> keszlet; //melyik képből mennyi van még map<Kep,mennyi>
     
     void felhasznal(Kep mit){ // felhasznál = elhasznál (melyiket tartsuk meg?)
         if(keszlet[mit] > 0){
             keszlet[mit]--;
-        }
-    }
-    
-    void elhasznal(int mit){
-        for(auto it : keszlet ){
-            if(it.first.azonosito == mit){
-                keszlet[it.first]--;
-            }
         }
     }
     
@@ -122,36 +114,32 @@ struct Halo{
         }
         keszlet[kep] = m;
     }
+    
     void kiir(){
         for(auto it : keszlet){
             cout << endl << "Azonosító: "<<it.first.azonosito<<" db: "<<it.second<< endl;
             for(int j = 0; j < it.first.vonalak.size();j++){
-                cout <<"Vonal"<<j+1<< ": " <<it.first.vonalak[j].ki <<"->"<< it.first.vonalak[j].be <<" [ "<< it.first.vonalak[j].szin[0]<<" "<< it.first.vonalak[j].szin[1] <<" "<< it.first.vonalak[j].szin[2]<<" ] "<< endl;
+                cout <<"Vonal"<<j+1<< ": " <<it.first.vonalak[j].ki <<"->"<< it.first.vonalak[j].be <<" ["<< it.first.vonalak[j].szin[0]<<" "<< it.first.vonalak[j].szin[1] <<" "<< it.first.vonalak[j].szin[2]<<"] "<< endl;
             }
         }
     }
     
-};
-
-
-Halo beolvas(){
-    Halo halo;
-    cout << "Hány féle képpel dolgozik?"<<endl;
-    string M;
-    int m;
-    getline(cin,M);
-    stringstream ss;
-    ss << M;
-    ss >> m;
-    for(int i = 0; i < m; i++) {
-        cout << "Kép mennyiség be ki r g b. be ki r g b. (...) "<< endl;
-        string adat;
-        getline(cin,adat);
-        halo.sorbeolvas(adat);
+    void beolvas(){
+        cout << "Hány féle képpel dolgozik?"<<endl;
+        string M;
+        int m;
+        getline(cin,M);
+        stringstream ss;
+        ss << M;
+        ss >> m;
+        for(int i = 0; i < m; i++) {
+            cout << "Kép mennyiség be ki r g b. be ki r g b. (...) "<< endl;
+            string adat;
+            getline(cin,adat);
+            sorbeolvas(adat);
+        }
     }
-    return halo;
 };
-
 
 
 /*
@@ -162,8 +150,10 @@ Halo beolvas(){
  */
 
 int main(int argc, const char * argv[]) {
-    Halo halo = beolvas();
-    halo.kiir();
+    Keszlet keszlet;
+    keszlet.beolvas();
+    keszlet.kiir();
+    // ide kell az algoritmus
     cout << "Yeah!!!!!" <<endl;
     return 0;
 }
