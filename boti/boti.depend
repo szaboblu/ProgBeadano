@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1546126966 source:/home/botond/Documents/Work_CodeBlocks/prog2_beadando/ProgBeadano/boti/main.cpp
+	<iostream>
+	<stdlib.h>
+	<vector>
+	<map>
+	<sstream>
+
