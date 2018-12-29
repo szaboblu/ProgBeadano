@@ -51,6 +51,7 @@ struct Kep {
     //map<int, int> Be_ki; //hol megy be és hol jut ki pozíció szerint
     //map<Vonal, vector<int>> szinek; // melyik vonal milyen szin (mi legyen string vagy int (itt csak sima összeadás is lehetne az új szín) -> nem jó lila != cian ) -->>-->> RGB kód kell
     vector<Vonal> vonalak;
+    map<int,vector<int>> oldalak;
     bool forgathato = false; //alap nem
     int forgatottsag; // 0,1,2,3 * 90° // vagy ezek többszörösei
     
@@ -58,17 +59,35 @@ public:
     Kep(){
         forgatottsag = 0;
     }
+    
     Kep(int az, vector<Vonal> v, bool forg){
         azonosito = az;
         forgatottsag = 0;
         forgathato = forg;
         vonalak = v;
     }
+    
     Kep(int az, vector<Vonal> v){
         azonosito = az;
         forgatottsag = 0;
         vonalak = v;
     }
+    
+    void oldaltolt(){
+        for(int i = 1; i <=4; i++){
+            vector<int> oldali = {0,0,0}; // alapból 0 0 0;
+            for(int j = 0; j < vonalak.size(); j++){
+                if(vonalak[j].be == i || vonalak[j].ki == i){
+                    oldali[0]+= vonalak[j].szin[0];
+                    oldali[1]+= vonalak[j].szin[1];
+                    oldali[2]+= vonalak[j].szin[2];
+                }
+            }
+            cout << "oldalak: " << oldali[0] << oldali[1] << oldali[2] << endl;
+            oldalak[i] = oldali;
+        }
+    }
+    
     
     void forgat(int fok){
         if(forgathato){
@@ -82,6 +101,10 @@ public:
     friend bool operator < (const Kep& a, const Kep& b){
         return a.azonosito < b.azonosito;
     }
+};
+
+void csatlakozas(){
+    
 };
 
 struct Keszlet{
@@ -120,8 +143,12 @@ struct Keszlet{
             cout << endl << "Azonosító: "<<it.first.azonosito<<" db: "<<it.second<< endl;
             for(int j = 0; j < it.first.vonalak.size();j++){
                 cout <<"Vonal"<<j+1<< ": " <<it.first.vonalak[j].ki <<"->"<< it.first.vonalak[j].be <<" ["<< it.first.vonalak[j].szin[0]<<" "<< it.first.vonalak[j].szin[1] <<" "<< it.first.vonalak[j].szin[2]<<"] "<< endl;
+                
             }
+            Kep k = it.first;
+            k.oldaltolt();
         }
+        
     }
     
     void beolvas(){
@@ -153,6 +180,7 @@ int main(int argc, const char * argv[]) {
     Keszlet keszlet;
     keszlet.beolvas();
     keszlet.kiir();
+    
     // ide kell az algoritmus
     cout << "Yeah!!!!!" <<endl;
     return 0;
