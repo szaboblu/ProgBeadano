@@ -22,12 +22,14 @@ using namespace std;
 
 struct Vonal{
     int ki, be; // hol a ki és bemenete => ez alapján azonosítja be
-    vector<int> szin; // RGB 3 elemű vektor (0/1) Fehér (1,1,1) pl piros: 1,0,0
+    int szin [3]; // RGB 3 elemű vektor (0/1) Fehér (1,1,1) pl piros: 1,0,0
     
     Vonal(int k, int b, int R, int G, int B){
     ki = k;
     be = b;
-    szin = {R,G,B};
+    szin [0] = R;
+    szin [1] = G;
+    szin [2] = B;
 }
     
     void belsoforgat(int m){ // ide kell rakni eg overflowt, mert ugye ki és be is max 4 lehet
@@ -120,6 +122,14 @@ struct Halo{
         }
         keszlet[kep] = m;
     }
+    void kiir(){
+        for(auto it : keszlet){
+            cout << endl << "Azonosító: "<<it.first.azonosito<<" db: "<<it.second<< endl;
+            for(int j = 0; j < it.first.vonalak.size();j++){
+                cout <<"Vonal"<<j+1<< ": " <<it.first.vonalak[j].ki <<"->"<< it.first.vonalak[j].be <<" [ "<< it.first.vonalak[j].szin[0]<<" "<< it.first.vonalak[j].szin[1] <<" "<< it.first.vonalak[j].szin[2]<<" ] "<< endl;
+            }
+        }
+    }
     
 };
 
@@ -127,14 +137,17 @@ struct Halo{
 Halo beolvas(){
     Halo halo;
     cout << "Hány féle képpel dolgozik?"<<endl;
+    string M;
     int m;
-    cin >> m;
-    while (m > 0) {
+    getline(cin,M);
+    stringstream ss;
+    ss << M;
+    ss >> m;
+    for(int i = 0; i < m; i++) {
         cout << "Kép mennyiség be ki r g b. be ki r g b. (...) "<< endl;
         string adat;
         getline(cin,adat);
         halo.sorbeolvas(adat);
-        m--;
     }
     return halo;
 };
@@ -150,6 +163,7 @@ Halo beolvas(){
 
 int main(int argc, const char * argv[]) {
     Halo halo = beolvas();
+    halo.kiir();
     cout << "Yeah!!!!!" <<endl;
     return 0;
 }
